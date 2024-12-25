@@ -7,12 +7,21 @@ In this video tutorial I will show you how you can use streamlit, Ollama llama3 
 [Watch the video](https://www.youtube.com/watch?v=1Q1wv6J2Z1A)
 
 ## Installation
-1. Clone the repository
-2. Install the required libraries
+1. install ollama 
+2. download and integrate llama3.1
+```bash
+ollama pull llama3.1
+```
+3. serve ollama
+```bash
+ollama serve
+```
+4. Clone the repository
+5. Install the required libraries
 ```bash
 pip install -r requirements.txt
 ```
-3. Run the app
+6. Run the app
 ```bash
 streamlit run app.py
 ```
