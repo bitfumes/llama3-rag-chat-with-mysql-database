@@ -2,11 +2,19 @@ import streamlit as st
 from langchain_community.chat_models import ChatOllama
 from langchain_community.utilities import SQLDatabase
 from langchain_core.prompts import ChatPromptTemplate
+from urllib.parse import quote_plus
 
-
+# def connectDatabase(username, port, host, password, database):
+#     mysql_uri = f"mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}"
+#     print(mysql_uri)
+#     st.session_state.db = SQLDatabase.from_uri(mysql_uri)
 def connectDatabase(username, port, host, password, database):
-    mysql_uri = f"mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}"
-    st.session_state.db = SQLDatabase.from_uri(mysql_uri)
+        # URL encode the password to handle special characters
+        encoded_password = quote_plus(password)
+        mysql_uri = f"mysql+mysqlconnector://{username}:{encoded_password}@{host}:{port}/{database}"
+        print(mysql_uri)
+        st.session_state.db = SQLDatabase.from_uri(mysql_uri)
+        
 
 
 def runQuery(query):
@@ -17,7 +25,7 @@ def getDatabaseSchema():
     return st.session_state.db.get_table_info() if st.session_state.db else "Please connect to database"
 
 
-llm = ChatOllama(model="llama3")
+llm = ChatOllama(model="llama3.1")
 
 
 def getQueryFromLLM(question):
